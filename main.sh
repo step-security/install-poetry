@@ -22,13 +22,13 @@ fi
 echo -e "\n${YELLOW}Setting Poetry installation path as $INSTALL_PATH${RESET}\n"
 echo -e "${YELLOW}Installing Poetry 👷${RESET}\n"
 
+# Parse INSTALLATION_ARGUMENTS into an array to prevent command injection
+IFS=' ' read -ra INSTALL_ARGS <<<"$INSTALLATION_ARGUMENTS"
+
 if [ "$VERSION" == "latest" ]; then
-	# Note: If we quote installation arguments, the call below fails
-	# shellcheck disable=SC2086
-	POETRY_HOME=$INSTALL_PATH python3 "$INSTALLATION_SCRIPT" --yes $INSTALLATION_ARGUMENTS
+	POETRY_HOME=$INSTALL_PATH python3 "$INSTALLATION_SCRIPT" --yes "${INSTALL_ARGS[@]}"
 else
-	# shellcheck disable=SC2086
-	POETRY_HOME=$INSTALL_PATH python3 "$INSTALLATION_SCRIPT" --yes --version="$VERSION" $INSTALLATION_ARGUMENTS
+	POETRY_HOME=$INSTALL_PATH python3 "$INSTALLATION_SCRIPT" --yes --version="$VERSION" "${INSTALL_ARGS[@]}"
 fi
 
 echo "$INSTALL_PATH/bin" >>"$GITHUB_PATH"
