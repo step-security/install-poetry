@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "install-poetry"
+version = "1"
+description = ""
+authors = ["step-security"]
+maintainers = ["step-security"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^8.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
