@@ -6,8 +6,8 @@ authors = ["step-security"]
 maintainers = ["step-security"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-pytest = "^8.3.1"
+python = "^3.10"
+pytest = "^9.0.3"
 
 [build-system]
 requires = ["poetry-core"]
