@@ -59,7 +59,7 @@ to make changes to the Poetry config *after* invoking the action - you can do so
 
 ```yaml
 - uses: step-security/install-poetry@v1
-- run: poetry config experimental.new-installer false
+- run: poetry config virtualenvs.prefer-active-python true
 ```
 
 ## Workflow examples and tips
@@ -103,12 +103,12 @@ jobs:
       #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up python
         id: setup-python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
@@ -125,7 +125,7 @@ jobs:
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -193,7 +193,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ "ubuntu-latest", "macos-latest" ]
-        python-version: [ "3.8", "3.9", "3.10", "3.11", "3.13" ]
+        python-version: [ "3.10", "3.11", "3.12", "3.13", "3.14" ]
         django-version: [ "4", "5" ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -201,7 +201,7 @@ jobs:
       #       check-out repo and set-up python
       #----------------------------------------------
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up python ${{ matrix.python-version }}
         id: setup-python
         uses: actions/setup-python@v6
@@ -220,7 +220,7 @@ jobs:
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -273,7 +273,7 @@ jobs:
       - uses: actions/setup-python@v6
         id: setup-python
         with:
-          python-version: '3.13'
+          python-version: '3.14'
       #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
@@ -287,7 +287,7 @@ jobs:
       #----------------------------------------------
       - name: Load cached venv
         id: cached-poetry-dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -312,7 +312,7 @@ jobs:
       # (requires CODECOV_TOKEN in repository secrets)
       #----------------------------------------------
       - name: Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}  # Only required for private repositories
           file: ./coverage.xml
@@ -372,12 +372,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up python
         id: setup-python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
       - name: Install Poetry
         uses: step-security/install-poetry@v1
         with:
@@ -385,7 +385,7 @@ jobs:
           virtualenvs-in-project: true
       - name: Load cached venv
         id: cached-pip-wheels
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
@@ -488,14 +488,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Set up python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.14'
       - name: Load cached Poetry installation
         id: cached-poetry
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.local  # the path depends on the OS
           key: poetry-0  # increment to reset cache
